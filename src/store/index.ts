@@ -1,27 +1,28 @@
-import axios from 'axios';
-import Vue from 'vue'
-import Vuex from 'vuex'
+import axios from "axios";
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    users:[],
+    users: [],
   },
-  getters:{
-    users(state){
+  getters: {
+    users(state) {
       return state.users;
-    }
+    },
   },
-  mutations: {
-  },
+  mutations: {},
   actions: {
-    async fetchUsers({state}){
-      const {data} = await axios.get('https://jsonplaceholder.typicode.com/users');
+    async fetchUsers({ state }) {
+      const { data } = await axios.get(
+        "https://jsonplaceholder.typicode.com/users"
+      );
       if (!data) return;
       state.users = data;
-    }
+      return state.users;
+    },
   },
-  modules: {
-  }
-})
+  modules: {},
+});

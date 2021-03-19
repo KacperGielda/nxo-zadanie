@@ -7,7 +7,6 @@
       class="elevation-4"
       :loading="loading"
       loading-text="Ładowanie... Proszę czekać"
-      :search="search"
     >
       <template v-slot:top>
         <v-card-title>
@@ -28,28 +27,35 @@
 import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class Home extends Vue {
-  data() {
+  data(): Record<string, unknown> {
     return {
       loading: false,
-      users: [{
-        id: 3,
-        name: "imie nazwisko",
-        email: 'e@mail.com',
-        
-      },
-      {
-        id: 3,
-        name: "imie nazwisko",
-        email: 'e@mail.com',
-        
-      }],
-       headers: [  
-          { text: 'lp', value: 'id' },
-          { text: 'Imię Nazwisko', value: 'name' },
-          { text: 'E-mail', value: 'email' },
-          {text: 'akcje', value: 'actions'}
-        ],
+      users: [],
+      headers: [
+        { text: "lp", value: "id" },
+        { text: "Imię Nazwisko", value: "name" },
+        { text: "E-mail", value: "email" },
+        { text: "Numer Telefonu", value: "phone" },
+        { text: "Nazwa Firmy", value: "company.name" },
+        { text: "akcje", value: "actions" }
+      ]
     };
+  }
+  async fetchUsers(): Promise<void> {
+    try {
+      this.$data.users = await this.$store.dispatch("fetchUsers");
+      console.log(this.$data.users);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  mounted(): void {
+    const usersFromState = this.$store.getters["users"];
+    if (usersFromState.length <= 0) {
+      this.fetchUsers();
+    } else {
+      this.$data.users = usersFromState;
+    }
   }
 }
 </script>
