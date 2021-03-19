@@ -7,9 +7,13 @@ Vue.use(VueRouter)
 const routes: Array<RouteConfig> = [
   {
     path: '/',
+    name: 'home',
+  },
+  {
+    path: '/users',
     name: 'users-table',
     component: UsersTable
-  },
+  }
 ]
 
 const router = new VueRouter({
