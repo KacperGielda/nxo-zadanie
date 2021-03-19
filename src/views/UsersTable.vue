@@ -10,7 +10,7 @@
     >
       <template v-slot:top>
         <v-card-title>
-          Lista użytkowików:
+          Lista użytkowników:
           <v-spacer />
           <v-btn color="primary" class="ml-4 mr-4 font-weight-medium">Dodaj</v-btn>
         </v-card-title>
@@ -26,10 +26,10 @@
 
     <v-dialog v-model="dialogDelete" max-width="600px">
       <v-card>
-        <v-card-title >Czy napewno usnąć użytkownika?</v-card-title>
+        <v-card-title >Czy napewno usunąć użytkownika?</v-card-title>
         <v-card-subtitle class="headline mt-1">{{selectedUser.name}}</v-card-subtitle>
         <v-card-text>
-          <v-alert type="warning">Zostaniesz wylogowany i utracisz dostęp do sysytemu</v-alert>
+          <v-alert type="warning">Zostaniesz wylogowany i utracisz dostęp do systemu</v-alert>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
