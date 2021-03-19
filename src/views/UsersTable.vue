@@ -44,7 +44,6 @@ export default class Home extends Vue {
   async fetchUsers(): Promise<void> {
     try {
       this.$data.users = await this.$store.dispatch("fetchUsers");
-      console.log(this.$data.users);
     } catch (err) {
       console.log(err);
     }
