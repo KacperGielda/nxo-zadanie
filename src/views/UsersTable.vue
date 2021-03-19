@@ -15,6 +15,9 @@
           <v-btn color="primary" class="ml-4 mr-4 font-weight-medium">Dodaj</v-btn>
         </v-card-title>
       </template>
+      <template v-slot:item.name="{ item }">
+        <v-btn text  color="primary" link :to="`/user/${item.id}`"> {{item.name}} </v-btn>
+    </template>
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
