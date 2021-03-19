@@ -20,6 +20,21 @@
         <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
       </template>
     </v-data-table>
+
+    <v-dialog v-model="dialogDelete" max-width="600px">
+      <v-card>
+        <v-card-title >Czy napewno usnąć użytkownika?</v-card-title>
+        <v-card-subtitle class="headline mt-1">{{selectedUser.name}}</v-card-subtitle>
+        <v-card-text>
+          <v-alert type="warning">Zostaniesz wylogowany i utracisz dostęp do sysytemu</v-alert>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text >Anuluj</v-btn>
+          <v-btn color="error" text>Usuń</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -31,6 +46,8 @@ export default class Home extends Vue {
     return {
       loading: false,
       users: [],
+      dialogDelete: false,
+      selectedUser: {},
       headers: [
         { text: "lp", value: "id" },
         { text: "Imię Nazwisko", value: "name" },
@@ -41,12 +58,17 @@ export default class Home extends Vue {
       ]
     };
   }
+
   async fetchUsers(): Promise<void> {
     try {
       this.$data.users = await this.$store.dispatch("fetchUsers");
     } catch (err) {
       console.log(err);
     }
+  }
+  deleteItem(user : Record<string, unknown> ): void {
+    this.$data.selectedUser = user;
+    this.$data.dialogDelete = true;
   }
   mounted(): void {
     const usersFromState = this.$store.getters["users"];
