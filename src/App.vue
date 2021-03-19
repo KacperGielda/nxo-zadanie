@@ -20,9 +20,31 @@
     height="100%"
     clipped>
     <template>
+       <v-list>
+      <v-list-group
+        v-for="item in navMenu"
+        :key="item.name"
+        no-action 
+      >
+        <template v-slot:activator>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.name"></v-list-item-title>
+          </v-list-item-content>
+        </template>
 
-      <v-treeview :items="nav" activatable light></v-treeview>
-
+        <v-list-item
+          v-for="child in item.children"
+          :key="child.name"
+          link  
+          :to="child.link"
+          color="primary"
+        >
+          <v-list-item-content>
+            <v-list-item-title v-text="child.name"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-group>
+    </v-list>
     </template>
     </v-navigation-drawer>
 
@@ -40,12 +62,13 @@ export default Vue.extend({
 
 
   data: () => ({
-    nav:[
+    navMenu:[
       {
       name:'Administracja',
       children:[
         {
-          name: 'Użytkownicy'
+          name: 'Użytkownicy',
+          link:"/users",
         }
       ]
       }
